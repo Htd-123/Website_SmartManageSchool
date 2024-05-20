@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm học sinh</title>
+    <!-- CDN bootstrap MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet"/>
+    <style>
+        /* Custom CSS */
+        body, html {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa; /* Màu nền giống hộp */
+        }
+
+        form {
+            width: 600px;
+            background-color: white; /* Màu nền của form */
+            padding: 20px;
+            border-radius: 10px; /* Bo góc form */
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1); /* Đổ bóng form */
+        }
+
+        .form-group {
+            margin-bottom: 25px; /* Khoảng cách giữa các dòng */
+        }
+    </style>
+</head>
+<body>
+<form method="post" th:action="@{'/student/insert'}">
+    <div class="form-group">
+        <label for="inputfullname">Họ và tên</label>
+        <input name="fullname" placeholder="" type="text" class="form-control" id="inputfullname">
+    </div>
+    <div class="form-group">
+        <label for="exampleInput1">Lớp</label>
+        <select name="grade" class="form-select" aria-label="Default select example" id="exampleInput1">
+            <option value="10C1" th:text="${'Lớp 10C1'}"></option>
+            <option value="10C2" th:text="${'Lớp 10C2'}"></option>
+            <option value="10C3" th:text="${'Lớp 10C3'}"></option>
+            <option value="11B1" th:text="${'Lớp 11B1'}"></option>
+            <option value="11B2" th:text="${'Lớp 11B2'}"></option>
+            <option value="11B3" th:text="${'Lớp 11B3'}"></option>
+            <option value="12A1" th:text="${'Lớp 12A1'}"></option>
+            <option value="12A2" th:text="${'Lớp 12A2'}"></option>
+            <option value="12A3" th:text="${'Lớp 12A3'}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleInput2">GVCN</label>
+        <input name="gvcn" type="text" class="form-control" id="exampleInput8">
+    </div>
+    <div class="form-group">
+        <label for="exampleInput2">SĐT Phụ huynh</label>
+        <input name="phoneparent" type="text" class="form-control" id="exampleInput9">
+    </div>
+    <div class="form-group">
+        <label for="exampleInput2">Toán</label>
+        <input name="math" type="text" class="form-control" id="exampleInput2">
+    </div>
+    <div class="form-group">
+        <label for="exampleInput3">Lý</label>
+        <input name="physical" type="text" class="form-control" id="exampleInput3">
+    </div>
+    <div class="form-group">
+        <label for="exampleInput4">Hóa</label>
+        <input name="chemistry" type="text" class="form-control" id="exampleInput4">
+    </div>
+    <div class="form-group">
+        <label for="exampleInput5">Văn</label>
+        <input name="literature" type="text" class="form-control" id="exampleInput5">
+    </div>
+    <div class="form-group">
+        <label for="exampleInput6">Tiếng Anh</label>
+        <input name="english" type="text" class="form-control" id="exampleInput6">
+    </div>
+    <button type="submit" class="btn btn-primary">Thêm học sinh</button>
+</form>
+</body>
+<!-- MDB -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"></script>
+</html>

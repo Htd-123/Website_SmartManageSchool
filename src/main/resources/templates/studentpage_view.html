@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Student</title>
+    <!-- CDN bootstrap MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet"/>
+</head>
+<body>
+<!-- Menu -->
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="homepage">Smart Management</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="student">Học sinh</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="grade">Lớp học</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="teacher">Giáo viên</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="parent">Phụ huynh</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="dashboard">Bảng điều khiển</a>
+                </li>
+                <li class="nav-item">
+                    <a th:text="${s_username}" class="nav-link active" aria-current="page" href="profile">User</a>
+                </li>
+                <li style="margin-left: 500px">
+                    <form method="post" action="student">
+                        <div class="input-group">
+                            <input name="searchStudent" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                            <input type="hidden" name="page" value="0">
+                            <button type="submit" class="btn btn-outline-secondary" data-mdb-ripple-init>Tìm kiếm</button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Loc theo lop hoc va loc theo xep loai-->
+<form method="post" action="student_filter">
+    <div style="width: auto; max-width: 700px; margin: 0 auto; margin-top: 100px; display: flex; align-items: center;">
+        <div class="form-group" style="width: auto; max-width: 300px;">
+            <select name="filter_grade" style="width: 300px" class="form-select" aria-label="Default select example" id="exampleInput2">
+                <option value="10C1" th:text="${'Lớp 10C1'}"></option>
+                <option value="10C2" th:text="${'Lớp 10C2'}"></option>
+                <option value="10C3" th:text="${'Lớp 10C3'}"></option>
+                <option value="11B1" th:text="${'Lớp 11B1'}"></option>
+                <option value="11B2" th:text="${'Lớp 11B2'}"></option>
+                <option value="11B3" th:text="${'Lớp 11B3'}"></option>
+                <option value="12A1" th:text="${'Lớp 12A1'}"></option>
+                <option value="12A2" th:text="${'Lớp 12A2'}"></option>
+                <option value="12A3" th:text="${'Lớp 12A3'}"></option>
+            </select>
+        </div>
+        <div class="form-group" style="width: auto; max-width: 300px; margin-left: 20px;">
+            <select  name="filter_classify" style="width: 300px" class="form-select" aria-label="Default select example" id="exampleInput1">
+                <option value="Gioi" th:text="${'Giỏi'}"></option>
+                <option value="Kha" th:text="${'Khá'}"></option>
+                <option value="Trung binh" th:text="${'Trung bình'}"></option>
+                <option value="Yeu" th:text="${'Yếu'}"></option>
+                <option value="Kem" th:text="${'Kém'}"></option>
+            </select>
+        </div>
+        <div style="margin-left: 20px;">
+            <input type="hidden" name="page" value="0">
+            <button type="submit" class="btn btn-primary" data-mdb-ripple-init>Lọc</button>
+        </div>
+    </div>
+</form>
+
+
+<!-- Table -->
+<table class="table" style="margin-top: 80px">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Họ và tên</th>
+        <th scope="col">Lớp</th>
+        <th scope="col">Toán</th>
+        <th scope="col">Lý</th>
+        <th scope="col">Hóa</th>
+        <th scope="col">Văn</th>
+        <th scope="col">Tiếng Anh</th>
+        <th scope="col">Xếp loại</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="listStudents: ${listStudent}">
+        <td th:text="${listStudents.id}"></td>
+        <td th:text="${listStudents.fullname}"></td>
+        <td th:text="${listStudents.grade}"></td>
+        <td th:text="${listStudents.math}"></td>
+        <td th:text="${listStudents.physical}"></td>
+        <td th:text="${listStudents.chemistry}"></td>
+        <td th:text="${listStudents.literature}"></td>
+        <td th:text="${listStudents.english}"></td>
+        <td><b th:text="${listStudents.classify}"></b></td>
+        <td><a th:href="@{'/student/' + ${listStudents.id}}" type="submit" class="btn btn-outline-primary" data-mdb-ripple-init data-mdb-ripple-color="dark">Sửa</a></td>
+        <form th:action="@{'/student/delete/' + ${listStudents.id}}" method="post">
+            <td><button type="submit" class="btn btn-outline-danger" data-mdb-ripple-init data-mdb-ripple-color="dark">Xóa</button></td>
+        </form>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a type="submit" th:href="@{'/student/insert'}" class="btn btn-outline-success" data-mdb-ripple-init data-mdb-ripple-color="dark">Thêm học sinh</a></td>
+    </tr>
+
+    </tbody>
+</table>
+<!-- Pagination -->
+<nav aria-label="Page navigation example" style="margin-left: auto; margin-right: auto; display: table">
+    <ul class="pagination">
+        <!-- Nút "First" -->
+        <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+            <a class="page-link" th:href="@{/student(page=0)}">First</a>
+        </li>
+
+        <!-- Nút "Previous" -->
+        <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+            <a class="page-link" th:href="@{/student(page=${currentPage - 1})}">Previous</a>
+        </li>
+
+        <!-- Các số trang -->
+        <th:block th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}">
+            <li class="page-item" th:classappend="${pageNumber == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{/student(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+            </li>
+        </th:block>
+
+        <!-- Nút "Next" -->
+        <li class="page-item" th:classappend="${currentPage >= totalPages - 1} ? 'disabled'">
+            <a class="page-link" th:href="@{/student(page=${currentPage + 1})}">Next</a>
+        </li>
+
+        <!-- Nút "Last" -->
+        <li class="page-item" th:classappend="${currentPage >= totalPages - 1} ? 'disabled'">
+            <a class="page-link" th:href="@{/student(page=${totalPages - 1})}">Last</a>
+        </li>
+    </ul>
+</nav>
+</body>
+<!-- MDB -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"></script>
+</html>
